@@ -2,6 +2,44 @@
     import frostedSugar from "../lib/assets/images/frosted-sugar.webp";
     import oreo from "../lib/assets/images/oreo.webp";
     import HeroSection from "../lib/components/heroSection.svelte";
+    import { onMount } from "svelte";
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+    onMount(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        
+        const cookie = document.getElementById("cookie");
+        const chips = document.getElementById("chips");
+
+        // Animation du cookie qui suit le scroll
+        gsap.to(cookie, {
+            y: 800, // distance vers le bas (ajustez selon vos besoins)
+            x: -500, // distance vers la droite (valeur positive) ou gauche (valeur négative)
+            rotation: 360, // rotation optionnelle
+            scrollTrigger: {
+                trigger: ".hero-section",
+                start: "top top", // commence quand le haut de hero-section atteint le haut du viewport
+                end: "bottom top", // termine quand le bas de hero-section atteint le haut du viewport
+                scrub: 1, // l'animation suit le scroll (1 = 1 seconde de latence douce)
+                markers: true // mettez true pour voir les marqueurs de debug
+            }
+        });
+
+        // Animation des chips qui suit le scroll
+        gsap.to(chips, {
+            y: 500, // distance vers le bas (ajustez selon vos besoins)
+            x: 650, // distance vers la droite (valeur positive) ou gauche (valeur négative)
+            rotation: -360, // rotation optionnelle
+            scrollTrigger: {
+                trigger: ".hero-section",
+                start: "top top", // commence quand le haut de hero-section atteint le haut du viewport
+                end: "bottom top", // termine quand le bas de hero-section atteint le haut du viewport
+                scrub: 1, // l'animation suit le scroll (1 = 1 seconde de latence douce)
+                markers: true // mettez true pour voir les marqueurs de debug
+            }
+        });
+    });
 </script>
 
 <HeroSection></HeroSection>

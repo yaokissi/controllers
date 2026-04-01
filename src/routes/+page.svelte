@@ -12,33 +12,53 @@
         const cookie = document.getElementById("cookie");
         const chips = document.getElementById("chips");
 
-        // Animation du cookie qui suit le scroll
-        gsap.to(cookie, {
-            y: 800, // distance vers le bas (ajustez selon vos besoins)
-            x: -500, // distance vers la droite (valeur positive) ou gauche (valeur négative)
-            rotation: 360, // rotation optionnelle
+        // ----------------------------------------------------
+        // TIMELINE DU COOKIE (Traverse toute la page)
+        // ----------------------------------------------------
+        const cookieTl = gsap.timeline({
             scrollTrigger: {
-                trigger: ".hero-section",
-                start: "top top", // commence quand le haut de hero-section atteint le haut du viewport
-                end: "bottom top", // termine quand le bas de hero-section atteint le haut du viewport
-                scrub: 1, // l'animation suit le scroll (1 = 1 seconde de latence douce)
-                markers: true // mettez true pour voir les marqueurs de debug
+                trigger: ".hero-section",      // Le conteneur de départ
+                start: "top top",              // Commence quand le haut du Hero touche le haut de l'écran
+                endTrigger: ".third-section",  // Le conteneur de fin (très important !)
+                end: "center center",          // Termine quand le centre de la 3ème section est au centre de l'écran
+                scrub: 1,                      // Animation fluide liée au scroll (1s de latence douce)
+                markers: true                  // Pense à mettre false en production
             }
         });
 
-        // Animation des chips qui suit le scroll
+        // Étape 1 : Descente vers la deuxième section
+        cookieTl.to(cookie, {
+            y: 800, 
+            x: -500, 
+            rotation: 360,
+            ease: "none" // Indispensable pour éviter des "à-coups" entre les étapes de la timeline
+        })
+        // Étape 2 : Descente finale vers la carte "Monster" de la troisième section
+        .to(cookie, {
+            y: 1500, // ⚠️ VALEUR À AJUSTER : Modifie ceci pour qu'il tombe pile dans la carte !
+            x: -100,
+              // On le recentre pour qu'il s'aligne avec la carte du milieu
+            width: '13vw',
+            rotation: 720,
+            ease: "none"
+        });
+
+        // ----------------------------------------------------
+        // ANIMATION DES CHIPS (Restent sur le Hero)
+        // ----------------------------------------------------
         gsap.to(chips, {
-            y: 500, // distance vers le bas (ajustez selon vos besoins)
-            x: 650, // distance vers la droite (valeur positive) ou gauche (valeur négative)
-            rotation: -360, // rotation optionnelle
+            y: 500, 
+            x: 650, 
+            rotation: -360, 
             scrollTrigger: {
                 trigger: ".hero-section",
-                start: "top top", // commence quand le haut de hero-section atteint le haut du viewport
-                end: "bottom top", // termine quand le bas de hero-section atteint le haut du viewport
-                scrub: 1, // l'animation suit le scroll (1 = 1 seconde de latence douce)
-                markers: true // mettez true pour voir les marqueurs de debug
+                start: "top top", 
+                end: "bottom top", 
+                scrub: 1, 
+                markers: true 
             }
         });
+
     });
 </script>
 
@@ -73,7 +93,8 @@
                 <h4>FROSTED SUGAR</h4>
                 <a href="" class="cta-btn">Buy Now</a>
             </div>
-            <div class="product-card">
+            <div class="product-card" id="monster-card">
+                
                 <h4>MONSTER</h4>
                 <a href="" class="cta-btn">Buy Now</a>
             </div>
@@ -290,4 +311,6 @@
             }
         }
     }
+
+
 </style>

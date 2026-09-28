@@ -44,6 +44,8 @@ npm run build
 | | Validation Runtime | **Zod v3.23** |
 | **Test & Linting** | Vitest & ESLint | **Vitest v2.1** + **ESLint v9** |
 | **DevOps & CI/CD** | Docker & GitHub Actions | **Docker Desktop**, **Docker Compose v2**, **GitHub Actions**, **SonarQube Cloud** |
+
+
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
